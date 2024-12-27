@@ -11,6 +11,9 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { appReducer } from "./slices/appSlice";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  app: appReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -35,3 +39,10 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type AppStore = typeof store;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+
+export const useAppSelector = useSelector.withTypes<RootState>();
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
