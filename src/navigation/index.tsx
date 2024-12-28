@@ -1,10 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { RootStackNavigator } from "./RootStackNavigator"
-import { useAppSelector } from "../redux"
+import { useAppSelector } from "@/redux"
 import { OnboardingStackNavigator } from "./OnboardingStackNavigator"
 
+
+
 export const AppNavigation = () => {
-    const { onboarded } = useAppSelector(state => state.app)
+    const { onboarded } = useAppSelector(state => state.app);
     return (
         <NavigationContainer>
             {

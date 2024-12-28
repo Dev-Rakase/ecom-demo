@@ -1,11 +1,11 @@
 
-import { View } from "react-native";
-import "./global.css"
-import { AppNavigation } from './navigation';
+import "../global.css"
+import { Text, View } from "react-native";
+import { AppNavigation } from '@/navigation';
 import { Provider } from "react-redux";
-import { persistor, store } from "./redux";
+import { persistor, store } from "@/redux";
 import { PersistGate } from "redux-persist/integration/react";
-import ThemeProvider from "./context/theme/themeContext";
+import ThemeProvider from "@/context/theme/themeContext";
 
 export default function App() {
   return (

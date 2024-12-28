@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { themesVariant } from "../../context/theme/themeConstant";
+import { themesVariant } from "@/context/theme/themeConstant";
 
 interface IState {
   theme: themesVariant;
