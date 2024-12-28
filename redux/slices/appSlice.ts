@@ -3,10 +3,12 @@ import { themesVariant } from "../../context/theme/themeConstant";
 
 interface IState {
   theme: themesVariant;
+  onboarded: boolean;
 }
 
 const initialState: IState = {
   theme: "brand",
+  onboarded: false,
 };
 
 const appSlice = createSlice({
@@ -15,6 +17,9 @@ const appSlice = createSlice({
   reducers: {
     switchTheme(state, action: PayloadAction<themesVariant>) {
       state.theme = action.payload;
+    },
+    setOnboarded(state) {
+      state.onboarded = true;
     },
   },
 });
