@@ -7,6 +7,7 @@ import { OnboardingStackNavigator } from "./OnboardingStackNavigator"
 
 export const AppNavigation = () => {
     const { onboarded } = useAppSelector(state => state.app);
+
     return (
         <NavigationContainer>
             {

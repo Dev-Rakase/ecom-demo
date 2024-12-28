@@ -1,13 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from '@/screens';
+import { Home, Profile } from '@/screens';
 import { Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native';
 import { cssInterop, remapProps } from 'nativewind';
+import { useAppSelector } from '@/redux';
+import { AuthStackNavigator } from './AuthStackNavigator';
 
 type RootStackParamList = {
     home: undefined;
-    profile: { userId: string };
+    profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -24,13 +26,14 @@ export const RootStack = ({ headerBackground }: IStack) => {
             },
             headerTitleStyle: {
                 color: "#fff"
-            }
+            },
+            headerTintColor: "#fff"
         }}>
             <Stack.Screen name='home' component={Home} options={{
                 title: "Home"
             }} />
-            <Stack.Screen name="profile" component={Home} options={{
-                title: "Home"
+            <Stack.Screen name="profile" component={Profile} options={{
+                title: "Profile"
             }} />
         </Stack.Navigator>
     )
@@ -45,4 +48,9 @@ cssInterop(RootStack, {
     }
 })
 
-export const RootStackNavigator = () => <RootStack headerClass="bg-primary" />
+export const RootStackNavigator = () => {
+    const { data } = useAppSelector(state => state.user)
+    return (
+        Object.keys(data).length != 0 ? <RootStack headerClass="bg-primary" /> : <AuthStackNavigator />
+    )
+}
