@@ -13,24 +13,30 @@ interface IUser {
 interface IState {
   loading: boolean;
   error?: null | string;
-  data: IUser | {};
+  data: IUser | null;
 }
 
 const initialState: IState = {
   loading: false,
   error: null,
-  data: {},
+  data: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser(state) {
+      state.data = null;
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(userLoginAction.pending, (state) => {
       state.loading = true;
       state.error = null;
-      state.data = {};
+      state.data = null;
     });
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
       const { token, ...payloadWithoutJWT } = action.payload;
@@ -40,7 +46,7 @@ const userSlice = createSlice({
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
-      state.data = {};
+      state.data = null;
       state.error = action.error.message;
     });
   },

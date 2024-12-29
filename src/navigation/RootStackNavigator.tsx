@@ -51,6 +51,6 @@ cssInterop(RootStack, {
 export const RootStackNavigator = () => {
     const { data } = useAppSelector(state => state.user)
     return (
-        Object.keys(data).length != 0 ? <RootStack headerClass="bg-primary" /> : <AuthStackNavigator />
+        data ? <RootStack headerClass="bg-primary" /> : <AuthStackNavigator />
     )
 }

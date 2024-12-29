@@ -7,6 +7,7 @@ export const themes = {
         light: vars({
             '--color-primary': '221.2 83.2% 53.3%',
             '--color-secondary': '214.3 31.8% 91.4%',
+
         }),
         dark: vars({
             '--color-primary': '217.2 91.2% 59.8%',
