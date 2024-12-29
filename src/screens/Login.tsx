@@ -5,7 +5,11 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userLoginSchema } from 'schema/user.schema'
 import { z } from 'zod'
+import { userLoginAction } from '@/redux/actions/userActions'
+import { useAppDispatch } from '@/redux'
+
 export default function Login() {
+    const dispatch = useAppDispatch()
     const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof userLoginSchema>>({
         resolver: zodResolver(userLoginSchema),
         defaultValues: {
@@ -16,7 +20,7 @@ export default function Login() {
 
 
     const handleLogin = (data: z.infer<typeof userLoginSchema>) => {
-        console.log(data)
+        dispatch(userLoginAction(data));
     }
 
     return (
