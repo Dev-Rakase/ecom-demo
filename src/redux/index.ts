@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 const persistConfig = {
-  key: "root",
+  key: "root-2",
   storage: AsyncStorage,
 };
 
