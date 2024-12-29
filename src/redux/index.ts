@@ -38,6 +38,13 @@ export const store = configureStore({
   },
 });
 
+export const setupStore = (preloadedState?: Partial<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
+
 export const persistor = persistStore(store);
 
 export type AppStore = typeof store;

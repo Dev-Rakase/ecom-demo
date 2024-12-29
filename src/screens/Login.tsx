@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Button } from '@/components/Button'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { userLoginSchema } from 'schema/user.schema'
+import { userLoginSchema } from '@/schema/user.schema'
 import { z } from 'zod'
 import { userLoginAction } from '@/redux/actions/userActions'
 import { useAppDispatch, useAppSelector } from '@/redux'
@@ -73,7 +73,7 @@ export default function Login() {
                     />
                 </View>
                 <Button disabled={loading} size="sm" onPress={handleSubmit(handleLogin)}>
-                    <Text className='text-white font-semibold'>Login</Text>
+                    <Text className='text-white font-semibold'>Login Now</Text>
                 </Button>
             </View>
         </KeyboardAvoidingView>

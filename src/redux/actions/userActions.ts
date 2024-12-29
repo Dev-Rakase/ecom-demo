@@ -1,6 +1,6 @@
 import API from "@/lib/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { userLoginSchema } from "schema/user.schema";
+import { userLoginSchema } from "@/schema/user.schema";
 import { z } from "zod";
 import * as SecureStore from "expo-secure-store";
 import { USER_JWT_KEY } from "../constant/userConstant";
