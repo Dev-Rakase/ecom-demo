@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLoginAction } from "../actions/userActions";
+import {
+  updateUserProfileAction,
+  userLoginAction,
+} from "../actions/userActions";
 import { themesVariant } from "@/context/theme/themeConstant";
 
 interface IUser {
@@ -48,6 +51,16 @@ const userSlice = createSlice({
       state.loading = false;
       state.data = null;
       state.error = action.error.message;
+    });
+
+    builder.addCase(updateUserProfileAction.pending, (state) => {
+      console.log("uploading...");
+    });
+    builder.addCase(updateUserProfileAction.fulfilled, (state, action) => {
+      console.log("done...");
+    });
+    builder.addCase(updateUserProfileAction.rejected, (state, action) => {
+      console.log("error...");
     });
   },
 });

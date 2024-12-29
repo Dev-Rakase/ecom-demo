@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Pressable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/redux'
 import { Image } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -8,6 +8,8 @@ import { userActions } from '@/redux/slices/userSlice'
 import { themes, themesVariant } from '@/context/theme/themeConstant'
 import { appActions } from '@/redux/slices/appSlice'
 import { cn } from '@/lib/utils'
+import * as ImagePicker from 'expo-image-picker';
+import { updateUserProfileAction } from '@/redux/actions/userActions'
 
 
 
@@ -15,6 +17,8 @@ export default function Profile() {
     const { data } = useAppSelector(state => state.user)
     const { theme } = useAppSelector(state => state.app)
     const dispatch = useAppDispatch();
+    const [image, setImage] = useState(data?.profile)
+
     const availableTheme = Object.keys(themes) as themesVariant[]
 
     if (data == null) {
@@ -30,11 +34,26 @@ export default function Profile() {
         dispatch(appActions.switchTheme(theme))
     }
 
+    const handleProfileImageUpload = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images',],
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.5,
+        });
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri)
+            dispatch(updateUserProfileAction(result.assets[0]))
+        }
+
+    }
+
     return (
         <ScrollView className='flex-1' contentContainerClassName='px-4' showsVerticalScrollIndicator={false} bounces={false}>
             <View className='relative self-center my-8'>
-                <Image source={{ uri: data.profile }} className='w-[100] h-[100]  border-2 border-slate-400 rounded-full' />
-                <Pressable className='absolute bottom-0 right-0 rounded-full bg-white p-1 border border-gray-400'>
+                <Image source={{ uri: image }} className='w-[100] h-[100]  border-2 border-slate-400 rounded-full' />
+                <Pressable onPress={handleProfileImageUpload} className='absolute bottom-0 right-0 rounded-full bg-white p-1 border border-gray-400'>
                     <MaterialCommunityIcons name='circle-edit-outline' size={22} color="#f87171" />
                 </Pressable>
             </View>
