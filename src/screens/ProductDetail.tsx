@@ -8,6 +8,7 @@ import { Button } from '@/components/Button'
 import { ScrollView } from 'react-native'
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native'
+import { useProductByIdHook } from '@/hooks/useProductHook'
 
 
 export default function ProductDetail({ route, navigation }: ScreenProps<"product-detail">) {
@@ -18,11 +19,7 @@ export default function ProductDetail({ route, navigation }: ScreenProps<"produc
         mutationFn: (data: {}) => purchaseProduct()
     });
 
-    const { isLoading, isError, error, data, refetch, isRefetching } = useQuery({
-        queryKey: [productId],
-        queryFn: () => fetchProductById(productId),
-        staleTime: 0 // for product with data change frequently 
-    })
+    const { isLoading, isError, error, data, refetch } = useProductByIdHook(productId)
 
     useFocusEffect(() => {
         // Temp solution to reset on mount
@@ -47,7 +44,7 @@ export default function ProductDetail({ route, navigation }: ScreenProps<"produc
 
     if (isLoading || data == undefined) return <View className='flex-1 justify-center items-center'><ActivityIndicator size="small" /></View>
 
-    if (isError) {
+    if (isError && error) {
         return (
             <CommonError message={error.message}>
                 <Button size="sm" onPress={() => refetch()}>
