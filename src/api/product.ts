@@ -23,3 +23,11 @@ export const fetchProductById = async (
   const { data } = await API.get<Product>(`/product/${id}`);
   return data.data;
 };
+
+export const purchaseProduct = async () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 2500);
+  });
+};
